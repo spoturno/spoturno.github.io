@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Scaling transaction throughput in blockains | Tomás Spoturno</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Scaling transaction throughput in blockains" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A writeup of a recent mini-project: I scraped tweets of the top 500 Twitter accounts and used t-SNE to visualize the accounts so that people who tweet similar things are nearby. My final Javascript implementation of t-SNE is released on Github as tsnejs." />
+<meta property="og:description" content="A writeup of a recent mini-project: I scraped tweets of the top 500 Twitter accounts and used t-SNE to visualize the accounts so that people who tweet similar things are nearby. My final Javascript implementation of t-SNE is released on Github as tsnejs." />
+<link rel="canonical" href="http://localhost:4000/2021/12/05/scaling-transaction-throughput/" />
+<meta property="og:url" content="http://localhost:4000/2021/12/05/scaling-transaction-throughput/" />
+<meta property="og:site_name" content="Tomás Spoturno" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-05T21:06:44-03:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Scaling transaction throughput in blockains" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-12-05T21:06:44-03:00","datePublished":"2021-12-05T21:06:44-03:00","description":"A writeup of a recent mini-project: I scraped tweets of the top 500 Twitter accounts and used t-SNE to visualize the accounts so that people who tweet similar things are nearby. My final Javascript implementation of t-SNE is released on Github as tsnejs.","headline":"Scaling transaction throughput in blockains","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/12/05/scaling-transaction-throughput/"},"url":"http://localhost:4000/2021/12/05/scaling-transaction-throughput/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Tomás Spoturno" /></head>
+
+
+    <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Tomás Spoturno</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="scaling-transaction-throughput-in-blockchains">Scaling transaction throughput in blockchains</h1>
+
+<p>There have been many proposals for scaling transaction throughput in blockchains. In this article we will talk about several types of approaches.</p>
+
+<p><em>A. Parallel PoW Blockchains</em></p>
+
+<p>Many protocols aim to achieve high transaction throughput by operating several blockchains in parallel in a manner conceptually similar to BlockReduce. The PoW version of Parallel Chains involves mining a metablock containing candidate blocks for a number of parallel chains which operate non-overlapping state partitions. In Particular, Parallel Chains does not support cross-blockchain transactions. Chainweb is another protocol operating many parallel chains, where each block header references the headers of other chains in order to braid the chains together. Chainweb allows crossblockchain state transitions and also features a mechanism by which chains inherit work from one another, but can achieve only a linear increase in transaction throughput with the number of parallel chains whereas BlockReduce is able to achieve superlinear scaling.</p>
+
+<p><em>B. Proof-of-Stake Protocols</em></p>
+
+<p>Proof-of-stake consensus protocols (PoS) are one of the most promising technology to replace PoW and still preserve similar properties: while PoW provides robustness assuming that a (qualified) majority of the computing power is honest, PoS instead relies on the assumption that a majority of the wealth in the system is controlled by honest participants. Users who have significant stakes in the system have an economic incentive in keeping the system running according to the protocol specification.</p>
+
+<p>Many Proof-of-Stake (PoS) protocols have been proposed and implemented, Ethereum’s planned move to Proof-of-Stake with the goal of achieving a high transaction throughput and a low settlement time. However, Proof-of-Stake protocols currently do not afford the same security guarantees as PoW and suffer from shortcomings such as the known “nothing at stake” problem. This problem can occur anytime there is a fork in the blockchain, either because of a malicious action or accidentally when two honest validators propose block simultaneously. This could potentially make [double-spend-attacks] more feasible.</p>
+
+<p><em>C. Layer 2 Protocols</em></p>
+
+<p>Layer 2 is another network working above the leading Ethereum network. This solution stay above the layer 1 network through smart contract. Layer 2 can interact with the leading network and not rely on modifications to their base protocols.</p>
+
+<p>There are multiple Layer 2 protocols which have been developed in order to facilitate high transaction throughput. These include Starkware, Polygon, and Lightning among many others. Layer 2 solutions inevitably require alternate trust models from the core blockchain protocol which may not be suited for all use cases. BlockReduce scales as a Layer 1 protocol and does not require an alternate trust model or any additional assumptions to achieve scalability.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li>[0] &amp;nbsp M. Fitzi, P. Gazi, A. Kiayias, and A. Russell, “Parallel Chains: Improving Throughput and Latency of Blockchain Protocols via Parallel Composition,” {IACR} Cryptology ePrint Archive, vol. 2018, p. 1119, 018</li>
+  <li>[1] &amp;nbsp W. Martino, M. Quaintance, and S. Popejoy, “Chainweb: A proof-of-work parallel-chain architecture for massive throughput,” Chainweb Whitepaper, vol. 19, 2018.</li>
+  <li>[2] &amp;nbsp C. Sguanci, R. Spatafora, and A. M. Vergani, “Layer 2 blockchain scaling: a survey,” arXiv preprint arXiv:2107.10881, 2021.</li>
+</ul>
+
+      </div>
+    </div>
+
+    <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Tomás Spoturno</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Tomás Spoturno</li><li><a class="u-email" href="mailto:tomas.spoturno@fing.edu.uy">tomas.spoturno@fing.edu.uy</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/spoturno"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">spoturno</span></a></li><li><a href="https://www.twitter.com/spoturnoo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">spoturnoo</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Just another blog about computer science, programming and other stuff.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+    </body>
+</html>

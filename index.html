@@ -1,49 +1,21 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Spoturno's website</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="./css/style.css">
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    </head>
-    <body>
-        <div>
-            <h1>Tomas Spoturno's website</h1>
-            <hr class="lines">
-            <div class="categories">
-                <span>
-                    <a href="./categories/math.html">Math</a>
-                </span>
-                <span>
-                    <a href="./categores/blockchains.html">Blockchains</a>
-                </span>
-                <span>
-                    <a href="./categories/music.html">Music</a>
-                </span>
-                <span>
-                    <a href="./categories/recently_read.html">Recently read</a>
-                </span>
-            </div>
-            <hr class="lines">
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-            <ul class="post-list">
-                <!-- 
-                no funca ¨??
-                <li>
-                    <span class="post-meta">2021 Dec 19</span>
-                    <h3 style="margin-top:21px">
-                       <a class="post-link" href="./general/2021/nftgeneration.html">NFT Generation with artificial intelligence</a> 
-                    </h3>
-                </li>
-                -->
-                <li>
-                    <span class="post-meta">2021 Dec 19</span>
-                    <h3 style="margin-top:21px">
-                       <a class="post-link" href="./general/2021/scaling.html">Scaling transaction throughput in blockchains</a> 
-                    </h3>
-                </li>
-            </ul>
-        </div>
-    </body>
-</html>
+layout: default
+---
+
+<div class="home">
+  
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        <br>
+        {{ post.excerpt }}
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>

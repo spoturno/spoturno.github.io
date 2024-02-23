@@ -20,14 +20,15 @@
 
 title: Tomás Spoturno
 email: tomas.spoturno@fing.edu.uy
-description: >- # this means to ignore newlines until "baseurl:"
+description: >- 
   Just another blog about computer science, programming and other stuff.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "" 
 url: "https://spoturno.uy" 
 twitter_username: spoturnoo
 github_username:  spoturno
 
 # Build settings
+permalink: pretty
 theme: minima
 plugins:
   - jekyll-feed
