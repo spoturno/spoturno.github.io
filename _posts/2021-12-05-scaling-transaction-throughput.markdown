@@ -2,7 +2,7 @@
 layout: default
 title: Scaling transaction throughput in blockains  
 date:   2021-12-05 21:06:44 -0300
-excerpt: "A writeup of a recent mini-project: I scraped tweets of the top 500 Twitter accounts and used t-SNE to visualize the accounts so that people who tweet similar things are nearby. My final Javascript implementation of t-SNE is released on Github as tsnejs."
+excerpt: "Exploring blockchain scalability solutions across Parallel PoW Blockchains, PoS Protocols, and Layer 2 Protocols. Parallel PoW enhances throughput via multiple blockchains, PoS focuses on stake-based incentives with security concerns, and Layer 2 solutions offer scalability with unique trust models. These methods reflect ongoing efforts to improve blockchain transaction capacity."
 
 ---
 # Scaling transaction throughput in blockchains
