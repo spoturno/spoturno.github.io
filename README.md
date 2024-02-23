@@ -1,4 +1,4 @@
-# https://spoturno.github.io/
+# https://spoturno.uy
 This is the source code to my personal website.
 
 ## Contributing 
