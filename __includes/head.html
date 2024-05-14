@@ -8,6 +8,6 @@
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="{{ site.title }} posts" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ '/css/main.css' | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ '/css/main.css' | prepend: site.baseurl }}?{{site.time | date:'%s%N'}}">
 
 </head>
